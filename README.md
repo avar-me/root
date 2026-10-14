@@ -1,17 +1,17 @@
-# dev.avar.me
+# avar.me
 
-Аварско-русский словарь — статический сайт, публикуется через GitHub Pages: <https://dev.avar.me>.
+Аварско-русский и русско-аварский словарь — статический сайт, публикуется через GitHub Pages: <https://avar.me>.
 
 Данные не хранятся в этом репозитории. При сборке выкачиваются jsonl из [sources.avar.me](https://sources.avar.me) по профилю (`av-ru` / `ru-av` здесь) — это единственный источник правды. Любые правки данных делайте в репозитории [`avar-me/sources`](https://github.com/avar-me/sources); после его пересборки можно дернуть workflow здесь (раз в сутки запускается автоматически) и сайт подтянет свежие данные.
 
-Репозиторий можно клонировать для других пар (`en`, `tr`, `fr`, `de`, `uk`, `be`): в `profile.json` меняются `id` и `host`, в `CNAME` — домен. Цвета (акцент под флаг) и имена словарей (`av-en`, `en-av`, …) лежат в `src/profiles/`.
+Это прод-версия на apex-домене avar.me — тот же словарь (`av-ru` / `ru-av`), что и на ru.avar.me, просто на основном домене проекта.
 
 ## Структура
 
 ```
 .
 ├── .github/workflows/deploy.yml   # Сборка и публикация на Pages
-├── CNAME                          # dev.avar.me
+├── CNAME                          # avar.me
 ├── profile.json                   # id языка + host этого клона
 ├── build.sh                       # Локальная сборка
 └── src/
@@ -33,7 +33,7 @@ python3 -m http.server -d docs 8000
 # открыть http://localhost:8000
 ```
 
-`build.sh` читает `profile.json`, скачивает `{av-xx,xx-av}.jsonl` из sources.avar.me, кладет шаблоны в `docs/`, запускает `src/build_data.py`, пишет `theme.css` и проставляет подписи / cache-bust.
+`build.sh` читает `profile.json`, скачивает `{av-ru,ru-av}.jsonl` из sources.avar.me, кладет шаблоны в `docs/`, запускает `src/build_data.py`, пишет `theme.css` и проставляет подписи / cache-bust.
 
 Базовый URL источников можно переопределить:
 
@@ -49,8 +49,8 @@ SOURCES_BASE=https://example.com/data ./build.sh
 
 | Хочется поменять | Куда лезть |
 |------------------|-----------|
-| Опечатку / перевод / пример | [`avar-me/sources`](https://github.com/avar-me/sources), `data/av-*.jsonl` |
-| Язык клона / цвета | `profile.json`, `src/profiles/{id}.json` |
+| Опечатку / перевод / пример | [`avar-me/sources`](https://github.com/avar-me/sources), `data/av-ru.jsonl` / `data/ru-av.jsonl` |
+| Язык клона / цвета | `profile.json`, `src/profiles/ru.json` |
 | Внешний вид сайта | `src/templates/html/styles.css` (или `tma/styles.css`) |
 | Логику поиска / саджестов / рандомайзера | `src/templates/html/app.js` |
 | Сборку данных | `src/build_data.py` |
